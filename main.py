@@ -28,7 +28,8 @@ def export_and_load(request):
         blob = bucket.blob(blob_name)
 
         with blob.open("w", encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
+            for entry in data:
+                f.write(json.dumps(entry) + '\n')
 
         return f"Created: {blob_name}", 200
 

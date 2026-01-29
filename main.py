@@ -9,6 +9,7 @@ import os
 def export_and_load(request):
     limit = os.getenv("BIKE_API_LIMIT", "50") 
     url = f'https://portail-api-data.montpellier3m.fr/bikestation?limit={limit}'
+    project_name = os.getenv("PROJECT_NAME", "montpellier-bike-data-pipeline")
     bucket_name = os.getenv("BUCKET_NAME", "montpellier-bike-data")
 
     try:
@@ -20,7 +21,7 @@ def export_and_load(request):
         return f"Failed to retrieve data: {exc}", 500
 
     try:
-        storage_client = storage.Client()
+        storage_client = storage.Client(project=project_name)
         bucket = storage_client.bucket(bucket_name)
 
         now = datetime.datetime.now()

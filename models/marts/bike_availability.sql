@@ -8,6 +8,7 @@ select
     station_id,
     updated_at,
     street_name,
+    station_geo,
     bikes_available,
     total_capacity,
     round(safe_divide(bikes_available, total_capacity) * 100, 2) as occupancy_percent,

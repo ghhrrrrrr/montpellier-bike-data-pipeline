@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: montpellier_bikes_raw
+    database: montpellier-bike-data-pipeline
+
+    schema: montpellier_bikes_raw
+
+    tables:
+      - name: bikes_table

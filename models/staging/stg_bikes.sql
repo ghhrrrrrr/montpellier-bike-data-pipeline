@@ -5,6 +5,7 @@ with raw_data as (
 )
 select
     replace(cast(id as string), 'urn:ngsi-ld:station:', '') as station_id,
+    cast(availableBikeNumber_metadata_timestamp_value as timestamp) as updated_at,
     address_value_streetAddress as street_name,
     cast(availableBikeNumber_value as int64) as bikes_available,
     cast(freeSlotNumber_value as int64) as slots_available,

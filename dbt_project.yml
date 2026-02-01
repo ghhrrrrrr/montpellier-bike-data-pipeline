@@ -33,6 +33,8 @@ models:
   bike_project:
     +materialized: view
     staging:
+      +schema: staging
       +materialized: view
     marts:
+      +schema: marts
       +materialized: table

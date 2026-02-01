@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: bike_availability
+    columns:
+      - name: station_id
+        tests:
+          - not_null
+      - name: occupancy_percent
+        description: "available bikes percent"

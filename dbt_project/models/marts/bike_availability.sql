@@ -20,3 +20,4 @@ select
         else 'Available'
     end as availability_status
 from stations
+where updated_at > '2026-01-01'

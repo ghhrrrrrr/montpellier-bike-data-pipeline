@@ -5,7 +5,7 @@ bike_project:
       type: bigquery
       method: service-account
       project: "{{ env_var('DBT_GOOGLE_PROJECT') }}"
-      dataset: montpellier_bikes_raw
+      dataset: montpellier_bikes
       threads: 4
       keyfile: ./dbt-service-account.json
       location: europe-west9

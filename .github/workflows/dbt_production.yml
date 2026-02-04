@@ -1,0 +1,53 @@
+name: dbt Production Pipeline
+
+on:
+  # Запуск при пуше в ветку main (CD)
+  push:
+    branches:
+      - main
+  # Запуск по расписанию (например, каждый час)
+  schedule:
+    - cron: '0 * * * *' 
+  # Возможность запустить кнопку вручную из интерфейса GitHub
+  workflow_dispatch:
+
+env:
+  DBT_PROFILES_DIR: ./ # Искать profiles.yml в корне проекта
+  DBT_GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+
+jobs:
+  run_dbt:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Скачиваем код репозитория
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Устанавливаем Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      # 3. Восстанавливаем JSON-ключ из секретов в файл
+      - name: Create Service Account Key File
+        run: echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" > ./dbt-service-account.json
+
+      # 4. Устанавливаем dbt и коннектор BigQuery
+      - name: Install dependencies
+        run: |
+          pip install dbt-bigquery
+          dbt deps
+
+      # 5. Проверяем соединение (опционально)
+      - name: Debug Connection
+        run: dbt debug
+
+      # 6. Запускаем обновление данных (Run)
+      - name: Run dbt models
+        run: dbt run
+
+      # 7. Запускаем тесты (Test)
+      - name: Test dbt models
+        run: dbt test

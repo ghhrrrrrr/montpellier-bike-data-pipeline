@@ -36,7 +36,9 @@ jobs:
 
       # 3. Восстанавливаем JSON-ключ из секретов в файл
       - name: Create Service Account Key File
-        run: echo "${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}" > ./dbt-service-account.json
+        env:
+          GCP_KEY: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+        run: echo "$GCP_KEY" > ./dbt-service-account.json
 
       # 4. Устанавливаем dbt и коннектор BigQuery
       - name: Install dependencies

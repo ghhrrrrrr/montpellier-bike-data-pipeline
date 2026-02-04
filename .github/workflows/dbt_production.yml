@@ -19,6 +19,10 @@ jobs:
   run_dbt:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./dbt_project
+
     steps:
       # 1. Скачиваем код репозитория
       - name: Checkout repository

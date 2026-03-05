@@ -164,5 +164,5 @@ This project is licensed under the MIT License.
 
 ## Acknowledgments
 
-- Data provided by Montpellier bike-sharing system API
+- Data provided by [Open Data - Montpellier](https://data.montpellier3m.fr/)
 - Built with Google Cloud Platform, dbt, and Power BI
